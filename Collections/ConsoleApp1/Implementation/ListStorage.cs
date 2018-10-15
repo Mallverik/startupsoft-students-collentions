@@ -7,15 +7,13 @@ namespace ConsoleApp1
     public class ListStorage<T> : IStorage<T> where T : IStorageObject
     {
         List<T> StorageObjectList = new List<T>();
-        //TODO: Implement
+        
         public T GetById(string id)
         {
             foreach (var items in StorageObjectList)
             {
                 if (items.Id == id)
                 {
-                    Console.WriteLine($"Item ID:{items.Id} casual id:{id} item:{items}");
-                    Console.ReadLine();
                     return items;
                 }
 
