@@ -73,7 +73,7 @@ namespace ConsoleApp1
         {
             foreach (var items in StorageObjectList)
             {
-                if (predicate(items) == true)
+                if (predicate(items))
                 {
                     yield return items;
                 }
