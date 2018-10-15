@@ -1,49 +1,95 @@
 ﻿using System;
 using System.Collections.Generic;
 
+
 namespace ConsoleApp1
 {
     public class ListStorage<T> : IStorage<T> where T : IStorageObject
     {
+        List<T> StorageObjectList = new List<T>();
         //TODO: Implement
         public T GetById(string id)
         {
-            throw new NotImplementedException();
+            foreach (var items in StorageObjectList)
+            {
+                if (items.Id == id)
+                {
+                    Console.WriteLine($"Item ID:{items.Id} casual id:{id} item:{items}");
+                    Console.ReadLine();
+                    return items;
+                }
+
+            }
+             throw new ArgumentException();
         }
 
         public void Insert(T item)
         {
-            throw new NotImplementedException();
+            if (StorageObjectList.IndexOf(item) != -1)
+            {
+                throw new ArgumentException();
+            }
+            StorageObjectList.Add(item);
         }
 
         public void InsertMany(IEnumerable<T> items)
         {
-            throw new NotImplementedException();
+            foreach (var count in items)
+            {
+                if (StorageObjectList.IndexOf(count) != -1)
+                {
+                    throw new ArgumentException();
+                }
+                StorageObjectList.Add(count);
+            }
+            
         }
 
         public bool Update(T element)
         {
-            throw new NotImplementedException();
+            if (StorageObjectList.IndexOf(element) == -1)
+            {
+                return false;
+            }
+            else
+            {
+                StorageObjectList[StorageObjectList.IndexOf(element)] = element;
+                return true;
+            }
         }
 
         public bool Exists(string id)
         {
-            throw new NotImplementedException();
+            foreach (var items in StorageObjectList)
+            {
+                if (items.Id == id)
+                {
+                    return true;
+                }
+
+            }
+            return false;
         }
 
         public IEnumerable<T> Filter(Predicate<T> predicate)
         {
-            throw new NotImplementedException();
+            foreach (var items in StorageObjectList)
+            {
+                if (predicate(items) == true)
+                {
+                    yield return items;
+                }
+            }
         }
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            StorageObjectList.Clear();
         }
 
         public int Count()
         {
-            throw new NotImplementedException();
+            return StorageObjectList.Count;
         }
     }
 }
