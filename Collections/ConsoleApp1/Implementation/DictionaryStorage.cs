@@ -5,7 +5,7 @@ namespace ConsoleApp1
 {
     public class DictionaryStorage<T> : IStorage<T> where T : IStorageObject
     {
-        Dictionary<T, T> StorageDictionary = new Dictionary<T,T>();
+        Dictionary<string, T> StorageDictionary = new Dictionary<string,T>();
         //TODO: Implement
         public void Clear()
         {
@@ -19,21 +19,15 @@ namespace ConsoleApp1
 
         public bool Exists(string id)
         {
-            foreach(var key in StorageDictionary.Keys)
-            {
-                if (id.Equals(key.Id))
-                {
-                    return true;
-                }
-            }
-            return false;
+            return StorageDictionary.ContainsKey(id);
+            
         }
 
         public IEnumerable<T> Filter(Predicate<T> predicate)
         {
             foreach (var items in StorageDictionary.Values)
             {
-                if (predicate(items) == true)
+                if (predicate(items))
                 {
                     yield return items;
                 }
@@ -42,24 +36,22 @@ namespace ConsoleApp1
 
         public T GetById(string id)
         {
-            foreach (var keys in StorageDictionary.Keys)
+
+            if (StorageDictionary.ContainsKey(id))
             {
-                
-                if (id.Equals(keys.Id))
-                {
-                    return StorageDictionary[keys];
-                }
+                return StorageDictionary[id];
             }
+            
             throw new ArgumentException();
         }
 
         public void Insert(T item)
         {
-            if (StorageDictionary.ContainsKey(item))
+            if (StorageDictionary.ContainsKey(item.Id))
             {
                 throw new ArgumentException();
             }
-            StorageDictionary.Add(item, item);
+            StorageDictionary.Add(item.Id, item);
 
         }
 
@@ -67,19 +59,15 @@ namespace ConsoleApp1
         {
             foreach (var item in items)
             {
-                if (StorageDictionary.ContainsKey(item))
-            {
-                throw new ArgumentException();
-            }
-                StorageDictionary.Add(item, item);
+                Insert(item);   
             }
         }
 
         public bool Update(T element)
         {
-            if (StorageDictionary.ContainsKey(element))
+            if (StorageDictionary.ContainsKey(element.Id))
             {
-                StorageDictionary[element] = element;
+                StorageDictionary[element.Id] = element;
                 return true;
             }
             return false;

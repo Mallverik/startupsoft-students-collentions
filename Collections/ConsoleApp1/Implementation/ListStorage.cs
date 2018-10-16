@@ -23,9 +23,13 @@ namespace ConsoleApp1
 
         public void Insert(T item)
         {
-            if (StorageObjectList.IndexOf(item) != -1)
+            foreach (var items in StorageObjectList)
             {
-                throw new ArgumentException();
+                if (items.Id == item.Id)
+                {
+                    throw new ArgumentException();
+                }
+
             }
             StorageObjectList.Add(item);
         }
@@ -34,26 +38,23 @@ namespace ConsoleApp1
         {
             foreach (var count in items)
             {
-                if (StorageObjectList.IndexOf(count) != -1)
-                {
-                    throw new ArgumentException();
-                }
-                StorageObjectList.Add(count);
+                Insert(count);
             }
             
         }
 
         public bool Update(T element)
         {
-            if (StorageObjectList.IndexOf(element) == -1)
+            foreach (var items in StorageObjectList)
             {
-                return false;
+                if (items.Id == element.Id)
+                {
+                    StorageObjectList[StorageObjectList.IndexOf(element)] = element;
+                    return true;
+                }
+              
             }
-            else
-            {
-                StorageObjectList[StorageObjectList.IndexOf(element)] = element;
-                return true;
-            }
+            return false;
         }
 
         public bool Exists(string id)
