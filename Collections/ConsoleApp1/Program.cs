@@ -14,6 +14,8 @@ namespace ConsoleApp1
         {
             Test(new DictionaryStorage<TestItem>());
             Test(new ListStorage<TestItem>());
+            Test(new DictionaryStorageLINQ<TestItem>());
+            Test(new ListStorageLINQ<TestItem>());
         }
 
         private static void Test(IStorage<TestItem> storage)

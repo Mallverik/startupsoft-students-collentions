@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 
 namespace ConsoleApp1
@@ -10,6 +11,7 @@ namespace ConsoleApp1
         
         public T GetById(string id)
         {
+
             foreach (var items in StorageObjectList)
             {
                 if (items.Id == id)
@@ -18,11 +20,12 @@ namespace ConsoleApp1
                 }
 
             }
-             throw new ArgumentException();
+            throw new ArgumentException();
         }
 
         public void Insert(T item)
         {
+
             foreach (var items in StorageObjectList)
             {
                 if (items.Id == item.Id)

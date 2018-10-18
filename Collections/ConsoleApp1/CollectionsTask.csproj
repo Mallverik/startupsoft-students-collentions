@@ -46,7 +46,9 @@
     <Compile Include="Implementation\DictionaryStorage.cs" />
     <Compile Include="Abstract\IStorage.cs" />
     <Compile Include="Abstract\IStorageObject.cs" />
+    <Compile Include="Implementation\DictionaryStorageLINQ.cs" />
     <Compile Include="Implementation\ListStorage.cs" />
+    <Compile Include="Implementation\ListStorageLINQ.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Model\TestItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
